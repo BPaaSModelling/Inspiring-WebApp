@@ -1,0 +1,26 @@
+<p>
+  Add a new Question
+</p>
+
+
+<form class="example-form">
+
+  <md-input-container class="example-full-width">
+    <input mdInput placeholder="Question" value="" [(ngModel)]="question.questionLabel" name="questionLabel">
+  </md-input-container>
+
+
+  <md-radio-group class="example-radio-group" [(ngModel)]="question.questionType" name="questionType">
+    <md-radio-button class="example-radio-button" *ngFor="let questionType of questionTypes" [value]="questionType.questionTypeConcept">
+      {{questionType.questionTypeLabel}}
+    </md-radio-button>
+
+
+    <button md-button (click)="sendQuestion()">Save</button>
+
+
+
+
+  </md-radio-group>
+
+</form>

@@ -9,12 +9,17 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AdminInsertQuestionComponent } from './admin-insert-question/admin-insert-question.component';
 import {Routes, RouterModule} from "@angular/router";
 import {AdminService} from "./_services/admin.service";
+import { AdminListQuestionsComponent } from './admin-list-questions/admin-list-questions.component';
 
 
 const appRoutes: Routes = [
   {
     path: 'admin/question/insert',
     component: AdminInsertQuestionComponent,
+  },
+  {
+    path: 'admin/question/list',
+    component: AdminListQuestionsComponent,
   }
 ];
 
@@ -22,7 +27,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AdminInsertQuestionComponent
+    AdminInsertQuestionComponent,
+    AdminListQuestionsComponent
   ],
   imports: [
     BrowserModule,

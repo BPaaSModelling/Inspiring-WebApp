@@ -1,0 +1,10 @@
+<p>
+  All questions are here:
+</p>
+
+<ul *ngFor="let question of adminService.questionData$ | async">
+  <li>{{question.questionLabel}} - {{question.questionURI}}</li>
+</ul>
+
+
+<app-admin-insert-question></app-admin-insert-question>

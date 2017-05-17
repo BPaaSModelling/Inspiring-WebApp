@@ -5,4 +5,5 @@ export class QuestionModel {
 
   public questionLabel:string;
   public questionType:string;
+  public questionURI:string;
 }

@@ -1,0 +1,72 @@
+<p>
+  Add a new Provider
+</p>
+
+<hr>
+Name: {{serviceProvider.providerName}}
+competences: {{serviceProvider.competence}}
+
+<div *ngFor="let cmp of serviceProvider.competence">
+  {{cmp.itSolutionURI}}
+</div>
+
+<hr>
+
+currentModel
+{{currentCompetence.currentCompetence}}
+
+
+<hr>
+
+
+<div *ngFor="let itsolution of adminService.itsolution$ | async">
+  {{itsolution.itSolutionLabel}} - {{itsolution.itSolutionURI}}
+</div>
+
+
+
+
+<form class="example-form">
+
+  <md-input-container class="example-full-width">
+    <input mdInput placeholder="Provider Name" value="" [(ngModel)]="serviceProvider.providerName" name="questionLabel">
+  </md-input-container>
+
+  <br>
+  <hr>
+
+  <md-select #t placeholder="IT Solution" name="itsolution" [(ngModel)]="currentCompetence.itsolution">
+    <md-option *ngFor="let itsolution of adminService.itsolution$ | async"
+               [value]="itsolution"
+               name="itSolutionURI"
+               ngDefaultControl>
+      {{itsolution.itSolutionLabel}}
+    </md-option>
+  </md-select>
+
+
+  <section class="example-section">
+    <md-checkbox *ngFor="let competence of adminService.competences$ | async"
+                 class="example-margin"
+                 (click)="handleMultiSelect(competence)" >
+                 {{competence.competenceType}}</md-checkbox>
+  </section>
+
+
+  <button md-button (click)="addList()">Add new list</button>
+
+
+  <ul>
+  <li *ngFor="let comsaved of serviceProvider.competence">
+    <pre>{{ comsaved.itsolution.itSolutionLabel }} </pre>
+    <div *ngFor="let comsavedList of comsaved.competenceList">
+      {{comsavedList.competenceType}}
+    </div>
+  </li>
+  </ul>
+
+
+    <button md-button (click)="checkOutput(itsolution)">Save</button>
+
+
+</form>

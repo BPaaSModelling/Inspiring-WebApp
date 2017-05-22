@@ -18,8 +18,8 @@ export class AdminInsertQuestionComponent implements OnInit {
     private adminService:AdminService
   ) {
 
-    this.questionTypes.push(new QuestionTypeModel("Single Select", "questionnaire:SingleSelect"));
-    this.questionTypes.push(new QuestionTypeModel("Multi Select", "questionnaire:MultiSelect"));
+    this.questionTypes.push(new QuestionTypeModel("Single Select", "inspire:SingleSelection"));
+    this.questionTypes.push(new QuestionTypeModel("Multi Select", "inspire:MultiSelection"));
 
   }
 

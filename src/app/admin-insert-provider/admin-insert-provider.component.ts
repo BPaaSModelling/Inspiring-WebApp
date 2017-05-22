@@ -16,6 +16,8 @@ export class AdminInsertProviderComponent implements OnInit {
   private serviceProvider:ProviderModel;
   private currentCompetence:CompetenceModel;
 
+  private test:any;
+
 
   constructor(
     private adminService:AdminService
@@ -25,33 +27,18 @@ export class AdminInsertProviderComponent implements OnInit {
     this.adminService.updateCompetencesAndITSolution();
   }
 
-
   ngOnInit() {
   }
-
-  private handleMultiSelect(competenceURI:CompetenceTypeModel):void{
-    //console.log(". " +JSON.stringify(competenceURI));
-    let index = this.currentCompetence.competenceList.indexOf(competenceURI, 0);
-    if(index==-1) {
-      //add item
-      this.currentCompetence.competenceList.push(competenceURI);
-    }else{
-      //remove item
-      this.currentCompetence.competenceList.splice(index, 1);
-    }
-    //console.log(" final array : " +JSON.stringify(this.currentCompetence.competenceList));
-  }
-
 
   private addList(){
     this.serviceProvider.competence.push(this.currentCompetence);
     this.currentCompetence = new CompetenceModel();
-    this.currentCompetence.competenceList = [];
     console.log(" final model : " +JSON.stringify(this.serviceProvider));
+
   }
 
-
-  public checkOutput(){
+  public saveProvider(){
+    this.adminService.saveProvider(this.serviceProvider);
     console.log("check :: " +JSON.stringify(this.currentCompetence));
   }
 

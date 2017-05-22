@@ -5,6 +5,7 @@ import {EndpointSettings} from "../_settings/enpoint.settings";
 import {Observable} from "rxjs";
 import {ITSolutionModel} from "../_models/itsolution.model";
 import {CompetenceTypeModel} from "../_models/competencetype.model";
+import {ProviderModel} from "../_models/provider.model";
 
 @Injectable()
 export class AdminService {
@@ -45,6 +46,14 @@ export class AdminService {
         this.questionData$ = Observable.of(success);
       }, error => console.log('Could not receive anything'));
 
+  }
+
+  public saveProvider(serviceProvider:ProviderModel){
+    this.http.post(EndpointSettings.getAddProviderEndpoint(), JSON.stringify(serviceProvider))
+      .map(response => response.json()).subscribe(
+      success => {
+        console.log('Done' +JSON.stringify(success));
+      }, error => console.log('Could not query the questionnaire'));
   }
 
   public updateCompetencesAndITSolution(){

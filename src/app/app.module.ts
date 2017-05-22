@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import {
   MdButtonModule, MdInputContainer, MdInputModule, MdRadioModule, MdAutocompleteModule,
-  MdSelectModule, MdCheckboxModule
+  MdSelectModule, MdCheckboxModule, MdGridTile, MdGridListModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AdminInsertQuestionComponent } from './admin-insert-question/admin-insert-question.component';
@@ -51,7 +51,8 @@ const appRoutes: Routes = [
     MdAutocompleteModule,
     ReactiveFormsModule,
     MdSelectModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    MdGridListModule
   ],
   providers: [AdminService],
   bootstrap: [AppComponent]

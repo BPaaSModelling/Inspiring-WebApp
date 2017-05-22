@@ -2,71 +2,61 @@
   Add a new Provider
 </p>
 
-<hr>
-Name: {{serviceProvider.providerName}}
-competences: {{serviceProvider.competence}}
-
-<div *ngFor="let cmp of serviceProvider.competence">
-  {{cmp.itSolutionURI}}
-</div>
-
-<hr>
-
-currentModel
-{{currentCompetence.currentCompetence}}
-
-
-<hr>
-
-
-<div *ngFor="let itsolution of adminService.itsolution$ | async">
-  {{itsolution.itSolutionLabel}} - {{itsolution.itSolutionURI}}
-</div>
-
-
-
-
 <form class="example-form">
 
   <md-input-container class="example-full-width">
-    <input mdInput placeholder="Provider Name" value="" [(ngModel)]="serviceProvider.providerName" name="questionLabel">
+    <input mdInput placeholder="Provider Name" value="" [(ngModel)]="serviceProvider.providerName" name="questionLabel"
+           required>
   </md-input-container>
 
   <br>
   <hr>
 
-  <md-select #t placeholder="IT Solution" name="itsolution" [(ngModel)]="currentCompetence.itsolution">
-    <md-option *ngFor="let itsolution of adminService.itsolution$ | async"
-               [value]="itsolution"
-               name="itSolutionURI"
-               ngDefaultControl>
-      {{itsolution.itSolutionLabel}}
-    </md-option>
-  </md-select>
+  <md-grid-list cols="2" rowHeight="100px">
 
+    <md-grid-tile [colspan]="1">
 
-  <section class="example-section">
-    <md-checkbox *ngFor="let competence of adminService.competences$ | async"
-                 class="example-margin"
-                 (click)="handleMultiSelect(competence)" >
-                 {{competence.competenceType}}</md-checkbox>
-  </section>
+      <md-select #t placeholder="IT Solution" name="itsolution" [(ngModel)]="currentCompetence.itsolution">
+        <md-option *ngFor="let itsolution of adminService.itsolution$ | async"
+                   [value]="itsolution"
+                   name="itSolutionURI"
+                   ngDefaultControl>
+          {{itsolution.itSolutionLabel}}
+        </md-option>
+      </md-select>
+    </md-grid-tile>
 
+    <md-grid-tile [colspan]="1">
+      <div class="form-group">
+        <label>Competences</label>
+        <select multiple name="topics" class="form-control" [(ngModel)]="currentCompetence.competenceList">
+          <option *ngFor="let competence of adminService.competences$ | async" [value]="competence">
+            {{competence.competenceType}}
+          </option>
+        </select>
+      </div>
+    </md-grid-tile>
 
-  <button md-button (click)="addList()">Add new list</button>
+    <md-grid-tile [colspan]="1">
+      <button md-button (click)="addList()">Add to list</button>
 
+    </md-grid-tile>
 
+  </md-grid-list>
+  <button md-button (click)="saveProvider()">Save</button>
+
+</form>
+
+  <hr>
+  <label>Entered competences</label>
   <ul>
-  <li *ngFor="let comsaved of serviceProvider.competence">
-    <pre>{{ comsaved.itsolution.itSolutionLabel }} </pre>
-    <div *ngFor="let comsavedList of comsaved.competenceList">
-      {{comsavedList.competenceType}}
-    </div>
-  </li>
+    <li *ngFor="let comsaved of serviceProvider.competence">
+      <pre>{{ comsaved.itsolution.itSolutionLabel }} </pre>
+      <div *ngFor="let comsavedList of comsaved.competenceList">
+        {{comsavedList.competenceType}}
+      </div>
+    </li>
   </ul>
 
 
-    <button md-button (click)="checkOutput(itsolution)">Save</button>
 
-
-</form>

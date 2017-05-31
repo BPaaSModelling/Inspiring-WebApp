@@ -1,11 +1,6 @@
-.example-form {
+.example-card {
   width: 500px;
 }
-
-.example-full-width {
-  width: 100%;
-}
-
 
 .example-radio-group {
   display: inline-flex;
@@ -19,4 +14,3 @@
 .example-selected-value {
   margin: 15px 0;
 }
-

@@ -1,3 +1,5 @@
+import {AnswerModel} from "./answer.model";
+
 export class QuestionModel {
 
   constructor(){
@@ -6,4 +8,7 @@ export class QuestionModel {
   public questionLabel:string;
   public questionType:string;
   public questionURI:string;
+  public answerList:AnswerModel[];
 }
+
+

@@ -2,11 +2,11 @@ export class QuestionTypeModel {
 
   constructor(label:string, concept:string){
 
-    this.questionTypeConcept = concept;
+    this.questionTypeURI = concept;
     this.questionTypeLabel = label;
 
   }
 
   public questionTypeLabel:string;
-  public questionTypeConcept:string;
+  public questionTypeURI:string;
 }

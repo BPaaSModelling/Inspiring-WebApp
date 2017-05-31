@@ -10,8 +10,8 @@ import {ProviderModel} from "../_models/provider.model";
 @Injectable()
 export class AdminService {
 
-  private test:QuestionModel[]=[];
-  private questionData$:Observable<QuestionModel[]> = Observable.of(this.test);
+  private questionsData$:Observable<QuestionModel[]> = Observable.of([]);
+  private providersData$:Observable<ProviderModel[]> = Observable.of(null);
 
   private competences$:Observable<CompetenceTypeModel[]> = Observable.of(null);
   private itsolution$:Observable<ITSolutionModel[]> = Observable.of(null);
@@ -33,20 +33,26 @@ export class AdminService {
 
 
 
-  public getAllQuestions(){
-    return this.http.get(EndpointSettings.getAllQuestionsEndpoint())
-      .map(response => response.json());
-  }
-
-
   public refreshQuestionList(){
-    this.getAllQuestions().subscribe(
+    this.http.get(EndpointSettings.getQuestionsEndpoint())
+      .map(response => response.json()).subscribe(
       success => {
-        console.log('I-ve received' +JSON.stringify(success));
-        this.questionData$ = Observable.of(success);
+        console.log('I-ve received questions' +JSON.stringify(success));
+        this.questionsData$ = Observable.of(success);
       }, error => console.log('Could not receive anything'));
 
   }
+
+  public refreshProviderList(){
+    this.http.get(EndpointSettings.getAllProvidersEndpoint())
+      .map(response => response.json()).subscribe(
+      success => {
+        console.log('I-ve received' +JSON.stringify(success));
+        this.providersData$ = Observable.of(success);
+      }, error => console.log('Could not receive anything'));
+
+  }
+
 
   public saveProvider(serviceProvider:ProviderModel){
     this.http.post(EndpointSettings.getAddProviderEndpoint(), JSON.stringify(serviceProvider))
@@ -78,6 +84,19 @@ export class AdminService {
           console.log('Done' +JSON.stringify(success));
           this.competences$ = Observable.of(success);
         }, error => console.log('Could not query the competences'));
+  }
+
+
+
+  public deleteQuestion(question:QuestionModel){
+    console.log("delete: " +JSON.stringify(question));
+
+    return this.http.delete(EndpointSettings.getDeleteQuestionEndpoint(), JSON.stringify(question))
+      .map(response => response.json()).subscribe(
+        success => {
+          console.log('Done' +JSON.stringify(success));
+
+        }, error => console.log('Could not delete the question'));
   }
 
 }

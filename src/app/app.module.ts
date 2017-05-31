@@ -5,8 +5,9 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {
-  MdButtonModule, MdInputContainer, MdInputModule, MdRadioModule, MdAutocompleteModule,
-  MdSelectModule, MdCheckboxModule, MdGridTile, MdGridListModule
+  MdButtonModule, MdInputModule, MdRadioModule, MdAutocompleteModule,
+  MdSelectModule, MdCheckboxModule, MdGridListModule, MdToolbarModule, MdCardModule, MdIconModule, MdIconRegistry,
+  MdChipsModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AdminInsertQuestionComponent } from './admin-insert-question/admin-insert-question.component';
@@ -14,20 +15,43 @@ import {Routes, RouterModule} from "@angular/router";
 import {AdminService} from "./_services/admin.service";
 import { AdminListQuestionsComponent } from './admin-list-questions/admin-list-questions.component';
 import { AdminInsertProviderComponent } from './admin-insert-provider/admin-insert-provider.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminListProvidersComponent } from './admin-list-providers/admin-list-providers.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import {BackendService} from "./backend.service";
+import { AdminQuestionInsertEditComponent } from './admin-question-insert-edit/admin-question-insert-edit.component';
 
 
 const appRoutes: Routes = [
   {
-    path: 'admin/question/insert',
-    component: AdminInsertQuestionComponent,
+    path: 'admin',
+    component: AdminHomeComponent,
+    children:[
+      {
+        path: 'question/insert',
+        component: AdminQuestionInsertEditComponent,
+      },
+      {
+        path: 'question/edit/:uri',
+        component: AdminQuestionInsertEditComponent,
+      },
+      {
+        path: 'question/list',
+        component: AdminListQuestionsComponent,
+      },
+      {
+        path: 'provider/insert',
+        component: AdminInsertProviderComponent,
+      },
+      {
+        path: 'provider/list',
+        component: AdminListProvidersComponent,
+      },
+    ]
   },
   {
-    path: 'admin/question/list',
-    component: AdminListQuestionsComponent,
-  },
-  {
-    path: 'admin/provider/insert',
-    component: AdminInsertProviderComponent,
+    path: '',
+    component: QuestionnaireComponent,
   },
 ];
 
@@ -37,7 +61,11 @@ const appRoutes: Routes = [
     AppComponent,
     AdminInsertQuestionComponent,
     AdminListQuestionsComponent,
-    AdminInsertProviderComponent
+    AdminInsertProviderComponent,
+    AdminHomeComponent,
+    AdminListProvidersComponent,
+    QuestionnaireComponent,
+    AdminQuestionInsertEditComponent
   ],
   imports: [
     BrowserModule,
@@ -52,9 +80,14 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MdSelectModule,
     MdCheckboxModule,
-    MdGridListModule
+    MdGridListModule,
+    MdToolbarModule,
+    MdCardModule,
+    MdIconModule,
+    MdChipsModule
+
   ],
-  providers: [AdminService],
+  providers: [MdIconRegistry, BackendService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

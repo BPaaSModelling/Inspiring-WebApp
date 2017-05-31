@@ -1,0 +1,94 @@
+<form [formGroup]="myForm" novalidate (ngSubmit)="submitForm(myForm.value)">
+
+  <md-card class="example-card">
+
+
+    <input type="text" class="form-control"
+           formControlName="questionURI" [hidden]="true">
+
+    <md-card-header>
+      <md-card-title>
+        <md-input-container class="example-full-width">
+          <input mdInput placeholder="Question" value="" formControlName="questionLabel"
+                 name="questionLabel" required>
+        </md-input-container>
+      </md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <hr>
+      <p>question type:<br/>
+        <md-radio-group class="example-radio-group" formControlName="questionType" name="questionType">
+          <md-radio-button class="example-radio-button"
+                           *ngFor="let questionType of backendService.questionTypes$ | async"
+                           [value]="questionType.questionTypeURI">
+            {{questionType.questionTypeLabel}}
+          </md-radio-button>
+        </md-radio-group>
+      </p>
+      <hr>
+      <p>
+        Answers<br/>
+      </p>
+      <div class="margin-20">
+        <a (click)="addAnswer()" style="cursor: default">
+          Add another answer +
+        </a>
+      </div>
+
+      <div formArrayName="answerList">
+
+        <div>
+          <md-card class="example-card" *ngFor="let answer of myForm.controls.answerList.controls; let i=index">
+            <md-card-header>
+              <md-card-title>Answer {{i + 1}}</md-card-title>
+              <md-card-subtitle>
+                <div *ngIf="myForm.controls.answerList.controls.length > 1"
+                     (click)="removeAnswer(i)">
+                  remove this answer
+                </div>
+              </md-card-subtitle>
+            </md-card-header>
+            <md-card-content>
+              <p [formGroupName]="i">
+                <input type="text" placeholder="Answer" value="" formControlName="answerLabel" name="answerLabel">
+                <input type="text" class="form-control" formControlName="answerURI" [hidden]="true">
+              </p>
+            </md-card-content>
+            <md-card-actions>
+            </md-card-actions>
+          </md-card>
+
+        </div>
+
+      </div>
+
+    </md-card-content>
+    <md-card-actions>
+      <button md-button *ngIf="!editing" type="submit" class="btn btn-primary btn-block">Add</button>
+      <button md-button *ngIf="editing" type="submit" class="btn btn-warning btn-block">Update</button>
+    </md-card-actions>
+  </md-card>
+
+
+  <div class="margin-20">
+    <div>myForm details:-</div>
+    <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+    <pre>form value: <br>{{myForm.value | json}}</pre>
+  </div>
+
+
+  <!--
+  <button md-button (click)="sendQuestion()">Save</button>
+
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
+      <input type="text" class="form-control" placeholder="enter question text here" [(ngModel)]="model.questionLabel" name="Question">
+    </div>
+    <br />
+    <textarea class="form-control" rows="3" placeholder="Text" [(ngModel)]="model.text" name="text"></textarea>
+    <br />
+    <button *ngIf="!editing" type="submit" class="btn btn-primary btn-block">Add</button>
+    <button *ngIf="editing" type="submit" class="btn btn-warning btn-block">Update</button>
+  </div>-->
+</form>

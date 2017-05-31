@@ -1,0 +1,10 @@
+<p>
+  Entered providers
+</p>
+
+<ul *ngFor="let question of adminService.questionsData$ | async">
+  <li>{{question.questionLabel}} - {{question.questionURI}}</li>
+</ul>
+
+<hr>
+<!-- <app-admin-insert-provider></app-admin-insert-provider> -->

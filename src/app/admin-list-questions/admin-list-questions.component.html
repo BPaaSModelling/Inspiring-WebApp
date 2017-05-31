@@ -1,10 +1,39 @@
+
+
+<app-admin-question-insert-edit></app-admin-question-insert-edit>
+
+<hr>
 <p>
-  All questions are here:
+  Entered questions
 </p>
 
-<ul *ngFor="let question of adminService.questionData$ | async">
-  <li>{{question.questionLabel}} - {{question.questionURI}}</li>
-</ul>
+<div class="card-container">
+
+<md-card class="example-card" *ngFor="let question of backendService.questions$ | async">
+  <md-card-header>
+    <div md-card-avatar class="example-header-image">
+      <md-icon *ngIf="question.questionType==MULTISELECTION">check_box</md-icon>
+      <md-icon *ngIf="question.questionType==SINGLESELECTION">radio_button_checked</md-icon>
+    </div>
+    <md-card-title>{{question.questionLabel}}</md-card-title>
+    <md-card-subtitle>
+    </md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <p>
+      text to be added
+    </p>
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button [routerLink]="['../edit', question.questionURI]"><md-icon>mode_edit</md-icon></button>
+    <button md-raised-button (click)="delete(question)"><md-icon>delete</md-icon></button>
+  </md-card-actions>
+</md-card>
+
+</div>
 
 
+
+<!--
 <app-admin-insert-question></app-admin-insert-question>
+-->
